@@ -7,6 +7,26 @@ const { lang } = Astro.props;
 const s = t(lang);
 const sp = s.support;
 const fix = (html: string) => lang === 'tr' ? html : html; // links are already localized in strings
+const namedEntities: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+// Plain text for JSON-LD only. Visible HTML is unchanged.
+function faqAnswerText(html: string) {
+  const decoded = html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(?:p|pre|div|li|blockquote|h[1-6])>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&(#x[0-9a-fA-F]+|#\d+|[a-zA-Z]+);/g, (match, body: string) => {
+      if (body[0] === '#') {
+        const code = body[1] === 'x' || body[1] === 'X' ? Number.parseInt(body.slice(2), 16) : Number.parseInt(body.slice(1), 10);
+        return Number.isInteger(code) && code >= 0 && code <= 0x10ffff ? String.fromCodePoint(code) : match;
+      }
+      return namedEntities[body] ?? match;
+    });
+  return decoded
+    .split('\n')
+    .map((line) => line.replace(/[ \t\f\v]+/g, ' ').trim())
+    .filter((line) => line.length > 0)
+    .join('\n');
+}
 const faqLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -14,7 +34,7 @@ const faqLd = {
   mainEntity: sp.faq.map((f) => ({
     '@type': 'Question',
     name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() },
+    acceptedAnswer: { '@type': 'Answer', text: faqAnswerText(f.a) },
   })),
 };
 ---
