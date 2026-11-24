@@ -33,4 +33,4 @@
 | Set as Default… is in the GeoPeek menu and on the welcome screen | CHANGELOG 0.4.1 |
 | "Lightweight Mac app and Quick Look extension" | README intro ("A lightweight macOS app and Quick Look extension") |
 | Finder column view shows the same Quick Look preview; ↑ ↓ move between files | 0.4.1 screen recordings in light and dark (geopeek-shots-041/{light,dark}/column-arrows*.mp4, column-*.png) |
-| This website: no cookies, no analytics, static; downloads hosted on GitHub | This repo: static Astro build, no third-party scripts or cookies in dist; DMG URL in src/site.ts points to GitHub Releases |
+| This website: no cookies; Cloudflare Web Analytics for visit counts (injected at the edge, cookieless, aggregate statistics); static; downloads hosted on GitHub | This repo: static Astro build; no cookies and no analytics script in dist (Cloudflare injects the Web Analytics beacon at the edge); DMG URL in src/site.ts points to GitHub Releases |

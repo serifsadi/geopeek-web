@@ -23,7 +23,7 @@ paths (`/support/`), so use the preview server to click around.
 - `wrangler.jsonc`: Cloudflare Workers Static Assets (`dist`), not deployed.
 
 ## Rules for this site
-- No cookies, no analytics, no web fonts, no third-party requests. JavaScript only for the pause and copy buttons.
+- No cookies. Cloudflare Web Analytics for visit counts (injected by Cloudflare at the edge, cookieless, aggregate statistics). No web fonts. JavaScript only for the pause and copy buttons, plus Cloudflare's analytics beacon.
 - Only verified product facts (see `FACTS.md`). No App Store line until it is live. No performance numbers.
 - Map attribution in the footer: OpenFreeMap, OpenMapTiles, © OpenStreetMap contributors (ODbL). See `CREDITS.md`.
 

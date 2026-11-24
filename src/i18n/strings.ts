@@ -150,7 +150,7 @@ export const strings = {
           'The thumbnail extension has no network access. For GeoJSON, KML, KMZ, and GPX files it shows the GeoPeek icon without reading the file.',
         ] },
         { h: 'This website', ps: [
-          'This website sets no cookies and has no analytics. It is a static site.',
+          'This website sets no cookies. It uses Cloudflare Web Analytics to count visits, which works without cookies and shows only aggregate statistics. It is a static site.',
           'Download links go to GitHub, where the disk image is hosted.',
         ] },
         { h: 'Questions', ps: [
@@ -309,7 +309,7 @@ export const strings = {
           'Küçük resim eklentisinin ağ erişimi yoktur. GeoJSON, KML, KMZ ve GPX dosyaları için dosyayı okumadan GeoPeek simgesini gösterir.',
         ] },
         { h: 'Bu web sitesi', ps: [
-          'Bu site çerez kullanmaz ve analitik içermez. Statik bir sitedir.',
+          'Bu site çerez kullanmaz. Ziyaretleri saymak için çerezsiz çalışan ve yalnızca toplu istatistik gösteren Cloudflare Web Analytics kullanılır. Statik bir sitedir.',
           'İndirme bağlantıları, disk görüntüsünün barındırıldığı GitHub’a gider.',
         ] },
         { h: 'Sorular', ps: [

@@ -30,7 +30,7 @@ const jsonld = {
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   image: new URL('/icon-512.png', SITE.url).href,
-  screenshot: new URL('/og.png', SITE.url).href,
+  screenshot: new URL(lang === 'tr' ? '/og-tr.png' : '/og.png', SITE.url).href,
   inLanguage: lang,
   author: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
   sameAs: [SITE.repoUrl],
