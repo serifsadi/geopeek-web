@@ -1,0 +1,95 @@
+---
+// Finder column view: the GeoPeek Quick Look preview in the preview column, files switched with the arrow keys.
+// Real screen recordings (public/media, made by scripts/media/encode-column.sh). One video per appearance;
+// CSS shows the one that matches the color scheme, the script plays only that one, only while on screen,
+// and never on its own with reduced motion (the poster stays).
+import type { Lang } from '../i18n/strings';
+import { t } from '../i18n/strings';
+import MapCredit from './MapCredit.astro';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang).column;
+const vids = ['light', 'dark'] as const;
+---
+<section class="sec col" id="column-view" aria-labelledby="column-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="row-k">{s.k}</p>
+      <h2 id="column-title">{s.title}</h2>
+      <p class="lead">{s.lead}</p>
+    </div>
+    <figure class="cv" data-cv>
+      <div class="cv-frame" role="img" aria-label={s.label}>
+        {vids.map((v) => (
+          <video class={`cv-v cv-${v}`} data-scheme={v} muted loop playsinline preload="none" width="1600" height="960"
+            poster={`/media/column-${v}-poster.webp`} aria-hidden="true" tabindex="-1" disablepictureinpicture>
+            <source src={`/media/column-${v}.webm`} type="video/webm" />
+            <source src={`/media/column-${v}.mp4`} type="video/mp4" />
+          </video>
+        ))}
+      </div>
+      <figcaption class="cv-foot">
+        <MapCredit />
+        <button class="cv-toggle" type="button" hidden data-pause={s.pause} data-play={s.play} data-pause-label={s.pauseLabel} data-play-label={s.playLabel} aria-label={s.playLabel}>
+          <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="2.6" height="10" rx=".8"/><rect x="9.4" y="3" width="2.6" height="10" rx=".8"/></svg>
+          <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.2v9.6c0 .5.5.8.9.5l7.3-4.8a.6.6 0 0 0 0-1L5.9 2.7c-.4-.3-.9 0-.9.5z"/></svg>
+          <span class="cv-tlabel">{s.play}</span>
+        </button>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+  for (const fig of document.querySelectorAll<HTMLElement>('[data-cv]')) {
+    const btn = fig.querySelector<HTMLButtonElement>('.cv-toggle')!;
+    const label = btn.querySelector('.cv-tlabel')!;
+    const dark = matchMedia('(prefers-color-scheme: dark)');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const vids = [...fig.querySelectorAll<HTMLVideoElement>('video')];
+    const active = () => vids.find((v) => v.dataset.scheme === (dark.matches ? 'dark' : 'light'))!;
+    let wanted = !reduce.matches; // user intent: playing or paused
+    let visible = false;
+    const sync = () => {
+      for (const v of vids) if (v !== active()) v.pause();
+      const v = active();
+      if (wanted && visible) { v.preload = 'auto'; v.play().catch(() => {}); } else v.pause();
+      fig.classList.toggle('is-paused', !wanted);
+      label.textContent = wanted ? btn.dataset.pause! : btn.dataset.play!;
+      btn.setAttribute('aria-label', wanted ? btn.dataset.pauseLabel! : btn.dataset.playLabel!);
+    };
+    btn.hidden = false;
+    btn.addEventListener('click', () => { wanted = !wanted; sync(); });
+    dark.addEventListener('change', sync);
+    reduce.addEventListener('change', () => { if (reduce.matches) wanted = false; sync(); });
+    new IntersectionObserver((es) => { visible = es[0].isIntersecting; sync(); }, { threshold: 0.25 }).observe(fig);
+    sync();
+  }
+</script>
+
+<style>
+  .col .row-k{margin:0 0 10px;font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.01em}
+  .cv{margin:44px 0 0}
+  /* the window keeps its macOS rounded corners (42 px of 2000 in the capture) */
+  .cv-frame{position:relative;aspect-ratio:1600/960;max-width:1040px;margin:0 auto;border-radius:2.1%/3.5%;overflow:hidden;
+    box-shadow:0 18px 40px rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.10)}
+  .cv-v{display:block;width:100%;height:100%;object-fit:cover}
+  .cv-dark{display:none}
+  @media (prefers-color-scheme:dark){
+    .cv-frame{box-shadow:0 18px 40px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.08)}
+    .cv-light{display:none}
+    .cv-dark{display:block}
+  }
+  .cv-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1040px;margin:14px auto 0}
+  .cv-toggle{display:inline-flex;align-items:center;gap:7px;flex:none;font:inherit;font-size:14px;color:var(--text);
+    background:transparent;border:1px solid var(--line-strong);border-radius:8px;padding:6px 12px 6px 10px;cursor:pointer}
+  .cv-toggle[hidden]{display:none}
+  .cv-toggle:hover{background:var(--hover)}
+  .cv-toggle svg{width:14px;height:14px;fill:currentColor}
+  .cv-toggle .i-pause{display:block}
+  .cv-toggle .i-play{display:none}
+  .cv.is-paused .cv-toggle .i-play{display:block}
+  .cv.is-paused .cv-toggle .i-pause{display:none}
+  /* phones: drop the sidebar column (left 24%) so file names and the map stay readable */
+  @media (max-width:700px){ .cv{margin-top:28px} .cv-frame{aspect-ratio:1206/960;border-radius:10px} .cv-v{object-position:100% 0} }
+</style>

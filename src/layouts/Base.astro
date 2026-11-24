@@ -1,0 +1,101 @@
+---
+import '../styles/global.css';
+import { SITE } from '../site';
+import { t, localePath, type Lang } from '../i18n/strings';
+import iconImg from '../assets/brand/icon.png';
+import { getImage } from 'astro:assets';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  path: string; // unlocalized, e.g. '/', '/support/'
+  jsonld?: object;
+  noindex?: boolean;
+}
+const { lang, title, description, path, jsonld, noindex } = Astro.props;
+const s = t(lang);
+const other: Lang = lang === 'en' ? 'tr' : 'en';
+const canonical = new URL(localePath(lang, path), SITE.url).href;
+const enUrl = new URL(localePath('en', path), SITE.url).href;
+const trUrl = new URL(localePath('tr', path), SITE.url).href;
+const ogImage = new URL(lang === 'tr' ? '/og-tr.png' : '/og.png', SITE.url).href;
+const navIcon = await getImage({ src: iconImg, width: 56, format: 'png' });
+const home = localePath(lang, '/');
+---
+<!doctype html>
+<html lang={s.htmlLang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+  {!noindex && <link rel="alternate" hreflang="en" href={enUrl} />}
+  {!noindex && <link rel="alternate" hreflang="tr" href={trUrl} />}
+  {!noindex && <link rel="alternate" hreflang="x-default" href={enUrl} />}
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfbfa" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141416" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GeoPeek" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:locale" content={s.ogLocale} />
+  <meta property="og:locale:alternate" content={t(other).ogLocale} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={s.meta.ogImageAlt} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+  {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+</head>
+<body>
+  <a class="skip" href="#main">{s.skip}</a>
+  <header class="site-head">
+    <div class="wrap head-in">
+      <a class="brand" href={home} aria-label={s.nav.home}>
+        <img src={navIcon.src} width="28" height="28" alt="" />
+        <span>GeoPeek</span>
+      </a>
+      <nav aria-label={s.nav.main}>
+        <ul>
+          <li class="hide-sm"><a href={`${home}#features`}>{s.nav.features}</a></li>
+          <li class="hide-sm"><a href={`${home}#formats`}>{s.nav.formats}</a></li>
+          <li class="hide-sm"><a href={`${home}#download`}>{s.nav.download}</a></li>
+          <li><a href={localePath(lang, '/support/')} aria-current={path === '/support/' ? 'page' : undefined}>{s.nav.support}</a></li>
+          <li><a class="lang" href={localePath(other, path)} hreflang={other} lang={other} title={s.langSwitch.title}>{s.langSwitch.label}</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <slot />
+  </main>
+  <footer class="site-foot">
+    <div class="wrap">
+      <div class="foot-top">
+        <a class="brand" href={home}><img src={navIcon.src} width="22" height="22" alt="" /><span>GeoPeek</span></a>
+        <nav aria-label={s.footer.nav}>
+          <ul>
+            <li><a href={localePath(lang, '/support/')}>{s.nav.support}</a></li>
+            <li><a href={localePath(lang, '/privacy/')}>{s.nav.privacy}</a></li>
+            <li><a href={SITE.repoUrl}>{s.footer.source}</a></li>
+            <li><a href={SITE.releasesUrl}>{s.download.allReleases}</a></li>
+            <li><a href={localePath(other, path)} hreflang={other} lang={other}>{s.langSwitch.label}</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="foot-line">{s.footer.made} <a href={SITE.authorUrl}>{SITE.author}</a>. <a href={SITE.licenseUrl}>{s.footer.license}</a></p>
+      <p class="foot-credits" set:html={s.footer.credits} />
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,21 @@
+---
+// <picture> with a dark-scheme source. Captures are swapped by file name only.
+import { shot, srcset } from '../lib/shots';
+interface Props {
+  name: string;
+  alt: string;
+  widths?: number[];
+  sizes?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+const { name, alt, widths = [480, 800, 1200, 1600, 2048], sizes = '100vw', class: cls, loading = 'lazy', fetchpriority } = Astro.props;
+const s = shot(name);
+const L = await srcset(s.light, widths);
+const D = s.dark === s.light ? L : await srcset(s.dark, widths);
+---
+<picture class={cls} data-shot={name} data-placeholder={s.placeholder ? '' : undefined}>
+  <source media="(prefers-color-scheme: dark)" srcset={D.srcset} sizes={sizes} />
+  <img src={L.src} srcset={L.srcset} sizes={sizes} width={L.width} height={L.height} alt={alt} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+</picture>

@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import { t, type Lang } from '../i18n/strings';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const p = s.privacyPage;
+---
+<Base lang={lang} title={s.meta.privacyTitle} description={s.meta.privacyDesc} path="/privacy/">
+  <div class="wrap page">
+    <h1>{p.title}</h1>
+    <p class="lead">{s.privacy.title}</p>
+    <p class="updated">{p.updated}</p>
+    <div class="sections">
+      {p.sections.map((sec) => (
+        <section class="prose">
+          <h2>{sec.h}</h2>
+          {sec.ps.map((x) => <p set:html={x} />)}
+        </section>
+      ))}
+    </div>
+  </div>
+</Base>
+<style>
+  .updated{margin-top:10px;color:var(--muted);font-size:14px}
+  .sections{margin-top:56px;border-top:1px solid var(--line);max-width:880px}
+  .sections section{display:grid;grid-template-columns:minmax(0,12em) minmax(0,1fr);gap:8px 32px;padding:28px 0;border-bottom:1px solid var(--line)}
+  .sections h2{font-size:18px}
+  .sections p{color:var(--muted);grid-column:2}
+  .sections p+p{margin-top:0}
+  @media (max-width:760px){ .sections section{grid-template-columns:1fr} .sections p{grid-column:1} }
+</style>
