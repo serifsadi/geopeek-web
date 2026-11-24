@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site';
+import { t, localePath, type Lang } from '../i18n/strings';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const sp = s.support;
+const fix = (html: string) => lang === 'tr' ? html : html; // links are already localized in strings
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: lang,
+  mainEntity: sp.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() },
+  })),
+};
+---
+<Base lang={lang} title={s.meta.supportTitle} description={s.meta.supportDesc} path="/support/" jsonld={faqLd}>
+  <div class="wrap page">
+    <h1>{sp.title}</h1>
+    <p class="lead">{sp.lead}</p>
+    <p class="actions">
+      <a class="btn" href={SITE.newIssueUrl}>{sp.issue}</a>
+      <a class="btn-ghost" href={SITE.issuesUrl}>{sp.issuesAll}</a>
+    </p>
+
+    <section class="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">{sp.faqTitle}</h2>
+      <div class="qa">
+        {sp.faq.map((f) => (
+          <details>
+            <summary><span>{f.q}</span></summary>
+            <div class="prose a" set:html={fix(f.a)} />
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">{sp.contactTitle}</h2>
+      <p>{sp.contact} <a href={SITE.newIssueUrl}>{sp.issue}</a>.</p>
+      <p class="sm"><a href={localePath(lang, '/privacy/')}>{s.nav.privacy}</a> · <a href={SITE.changelogUrl}>{s.support.changelog}</a></p>
+    </section>
+  </div>
+</Base>
+<style>
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .faq{margin-top:88px}
+  .faq h2,.contact h2{font-size:clamp(24px,3vw,30px)}
+  .qa{margin-top:24px;border-top:1px solid var(--line);max-width:var(--w-text)}
+  details{border-bottom:1px solid var(--line)}
+  summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;font-weight:600;font-size:18px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"";flex:none;width:9px;height:9px;border-right:1.6px solid var(--muted);border-bottom:1.6px solid var(--muted);transform:rotate(45deg) translateY(-3px);transition:transform .15s}
+  details[open] summary::after{transform:rotate(-135deg) translateY(-1px)}
+  .a{padding:0 0 22px;color:var(--muted)}
+  .a :global(pre){color:var(--text)}
+  .contact{margin-top:72px;max-width:var(--w-text)}
+  .contact p{margin-top:12px;color:var(--muted)}
+  .contact .sm{font-size:15px}
+</style>

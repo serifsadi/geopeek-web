@@ -1,0 +1,425 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Dolmabahçe Gazhane Caddesi",
+    "highway": "bus_stop",
+    "osm_id": "node/255088149"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9927537,
+     41.0399185
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gümüşsuyu",
+    "highway": "bus_stop",
+    "osm_id": "node/595767991"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.991096,
+     41.0370404
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kabataş",
+    "highway": "bus_stop",
+    "osm_id": "node/595767995"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.992654,
+     41.034656
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Taksim",
+    "highway": "bus_stop",
+    "osm_id": "node/4356704196"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9876442,
+     41.0373246
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Abdülhak Hamit Caddesi",
+    "highway": "bus_stop",
+    "osm_id": "node/4737705122"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9847748,
+     41.0410881
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Park Otel",
+    "highway": "bus_stop",
+    "osm_id": "node/5596423325"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.987713,
+     41.035334
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gümüşsuyu Peron",
+    "highway": "bus_stop",
+    "osm_id": "node/6673203628"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9896306,
+     41.0396358
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tarlabaşı",
+    "highway": "bus_stop",
+    "osm_id": "node/7112399780"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9806984,
+     41.0366163
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gümüşsuyu",
+    "highway": "bus_stop",
+    "osm_id": "node/9293380773"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9912124,
+     41.0391857
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Taksim",
+    "highway": "bus_stop",
+    "osm_id": "node/10111044317"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9872792,
+     41.0371325
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Taksim",
+    "highway": "bus_stop",
+    "osm_id": "node/11211123974"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9872374,
+     41.035534
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Taksim",
+    "highway": "bus_stop",
+    "osm_id": "node/11247834183"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9833536,
+     41.0371272
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Teknik Üniversite",
+    "highway": "bus_stop",
+    "osm_id": "node/11486617688"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9930364,
+     41.0379317
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Taksim Tünel",
+    "highway": "bus_stop",
+    "osm_id": "node/11532842219"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.984631,
+     41.03792
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Elmadağ",
+    "highway": "bus_stop",
+    "osm_id": "node/11532842224"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9864782,
+     41.0419673
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Taksim Tünel",
+    "highway": "bus_stop",
+    "osm_id": "node/11532842251"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9852609,
+     41.037838
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tarlabaşı",
+    "highway": "bus_stop",
+    "osm_id": "node/11532842252"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.980664,
+     41.0363836
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Teknik Üniversite",
+    "highway": "bus_stop",
+    "osm_id": "node/11540411080"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.992839,
+     41.03726
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kabataş",
+    "highway": "bus_stop",
+    "osm_id": "node/11540591796"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9932011,
+     41.0345617
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Taksim",
+    "highway": "bus_stop",
+    "osm_id": "node/11659713417"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.986412,
+     41.040051
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Dolmabahçe-tünel",
+    "highway": "bus_stop",
+    "osm_id": "node/11666216664"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9932737,
+     41.0388044
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gümüşsuyu Peron",
+    "highway": "bus_stop",
+    "osm_id": "node/11674207610"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9888291,
+     41.0396602
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bayıldım Caddesi",
+    "highway": "bus_stop",
+    "osm_id": "node/12806059594"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9948899,
+     41.0415297
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Taksim Meydan",
+    "highway": "bus_stop",
+    "osm_id": "node/13165609095"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.98649,
+     41.037272
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Taksim",
+    "highway": "bus_stop",
+    "osm_id": "node/13165645906"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.987281,
+     41.037004
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Altintepe",
+    "highway": "bus_stop",
+    "osm_id": "node/13165645916"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.983472,
+     41.039054
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Gümüşsuyu",
+    "highway": "bus_stop",
+    "osm_id": "node/13165645927"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.98987,
+     41.040314
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Beşiktaş Stadyumu",
+    "highway": "bus_stop",
+    "osm_id": "node/13461435985"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     28.9943606,
+     41.0411989
+    ]
+   }
+  }
+ ]
+}

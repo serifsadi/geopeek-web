@@ -1,0 +1,192 @@
+---
+// Hero: Finder > Space > Quick Look, built from real captures (CSS animation, 8 s loop).
+// Default styles are the final frame, so reduced motion shows a meaningful still.
+import { shot, srcset } from '../lib/shots';
+import type { Lang } from '../i18n/strings';
+import { t } from '../i18n/strings';
+import MapCredit from './MapCredit.astro';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang).scene;
+
+async function pic(name: string, widths: number[]) {
+  const x = shot(name);
+  const L = await srcset(x.light, widths);
+  const D = x.dark === x.light ? L : await srcset(x.dark, widths);
+  return { L, D, placeholder: x.placeholder };
+}
+const finder = await Promise.all([1, 2, 3].map((n) => pic(`scene-finder-${n}`, [680, 1360])));
+const ql = await pic('scene-ql', [810, 1240, 1620]);
+const qlPop = await pic('scene-ql-popup', [810, 1240, 1620]);
+const finderSizes = '(max-width: 700px) 680px, 680px';
+const qlSizes = '(max-width: 700px) 640px, 810px';
+---
+<figure class="scene" aria-labelledby="scene-cap">
+  <div class="sc-visual" role="img" aria-label={s.label}>
+  <div class="sc-stage">
+    <div class="sc-fwrap" aria-hidden="true">
+      {finder.map((f, i) => (
+        <picture class={`f f${i + 1}`}>
+          <source media="(prefers-color-scheme: dark)" srcset={f.D.srcset} sizes={finderSizes} />
+          <img src={f.L.src} srcset={f.L.srcset} sizes={finderSizes} width={f.L.width} height={f.L.height} alt="" loading="eager" decoding="async" />
+        </picture>
+      ))}
+    </div>
+    <div class="sc-keyrow" aria-hidden="true"><kbd class="sc-key">{s.key}<span class="sc-ring"></span></kbd></div>
+    <div class="sc-ql" aria-hidden="true">
+      <div class="sc-qlclip">
+        <div class="sc-qlin">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset={ql.D.srcset} sizes={qlSizes} />
+            <img class="sc-qlimg" src={ql.L.src} srcset={ql.L.srcset} sizes={qlSizes} width={ql.L.width} height={ql.L.height} alt="" loading="eager" fetchpriority="high" decoding="async" />
+          </picture>
+          <picture class="sc-pop">
+            <source media="(prefers-color-scheme: dark)" srcset={qlPop.D.srcset} sizes={qlSizes} />
+            <img src={qlPop.L.src} srcset={qlPop.L.srcset} sizes={qlSizes} width={qlPop.L.width} height={qlPop.L.height} alt="" loading="eager" decoding="async" />
+          </picture>
+          <svg class="sc-cursor" viewBox="0 0 18 24" aria-hidden="true"><path d="M2 1.5v18.5l4.6-4.4 3 6.6 3-1.3-3-6.5h6.4z" fill="#111" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <figcaption class="sc-foot">
+    <div class="sc-cap">
+      <ol class="sc-steps" id="scene-cap">
+        {s.steps.map((st, i) => <li class={`st st${i + 1}`}><span class="n">{i + 1}</span>{st}</li>)}
+      </ol>
+      <MapCredit class="sc-credit" />
+    </div>
+    <button class="sc-toggle" type="button" data-pause={s.pause} data-play={s.play} data-pause-label={s.pauseLabel} data-play-label={s.playLabel} aria-label={s.pauseLabel}>
+      <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="2.6" height="10" rx=".8"/><rect x="9.4" y="3" width="2.6" height="10" rx=".8"/></svg>
+      <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.2v9.6c0 .5.5.8.9.5l7.3-4.8a.6.6 0 0 0 0-1L5.9 2.7c-.4-.3-.9 0-.9.5z"/></svg>
+      <span class="sc-tlabel">{s.pause}</span>
+    </button>
+  </figcaption>
+</figure>
+
+<script>
+  // Pause and play the hero animation. Nothing else runs on the page.
+  for (const fig of document.querySelectorAll<HTMLElement>('.scene')) {
+    const btn = fig.querySelector<HTMLButtonElement>('.sc-toggle');
+    const label = btn?.querySelector('.sc-tlabel');
+    if (!btn || !label) continue;
+    btn.addEventListener('click', () => {
+      const paused = fig.classList.toggle('is-paused');
+      label.textContent = paused ? btn.dataset.play! : btn.dataset.pause!;
+      btn.setAttribute('aria-label', paused ? btn.dataset.playLabel! : btn.dataset.pauseLabel!);
+    });
+  }
+</script>
+
+<style>
+  .scene{
+    --dur:8s;
+    --stage-bg:#ecebe8; --key:#fff; --key-edge:#cfccc6; --key-text:#3a3a3c; --hit:var(--accent-strong);
+    container-type:inline-size; margin:28px auto 0;
+    /* the whole panel fits the viewport below the sticky header: stage is 1080:660, chrome (margins + footer) about 120px */
+    width:min(100%, 1120px, max(660px, calc((100svh - 56px - 24px - 120px) * 1.6364 + 40px)));
+    background:var(--stage-bg); border:1px solid var(--line); border-radius:22px; overflow:hidden;
+  }
+  @media (prefers-color-scheme:dark){
+    .scene{--stage-bg:#1d1d20; --key:#3a3a3d; --key-edge:#0c0c0e; --key-text:#ececef}
+  }
+  .scene img{display:block;width:100%;height:auto;max-width:none}
+  .sc-stage{position:relative;aspect-ratio:1080/660;margin:20px 20px 18px}
+
+  /* Finder window, actual size on desktop (680 pt of 1080) */
+  .sc-fwrap{position:absolute;left:18.5%;top:5%;width:63%;z-index:1;aspect-ratio:1360/464;
+    filter:drop-shadow(0 14px 26px rgba(0,0,0,.26)) drop-shadow(0 1px 2px rgba(0,0,0,.2))}
+  .sc-fwrap .f{position:absolute;inset:0 auto auto 0;width:100%;opacity:0}
+  .sc-fwrap .f3{opacity:1}
+
+  /* Quick Look panel, actual size on desktop (810 pt of 1080) */
+  .sc-ql{position:absolute;left:12.5%;top:1%;width:75%;z-index:2;transform-origin:20.2% 21.9%;
+    filter:drop-shadow(0 22px 40px rgba(0,0,0,.36)) drop-shadow(0 1px 2px rgba(0,0,0,.25))}
+  /* Full Quick Look window, title bar included ("Open with GeoPeek": captured with GeoPeek as the default app). */
+  .sc-qlclip{position:relative}
+  .sc-qlin{position:relative}
+  .sc-pop{position:absolute;inset:0}
+  .sc-cursor{position:absolute;left:47.4%;top:46.5%;width:2.2%;opacity:0;pointer-events:none;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.5))}
+
+  .sc-keyrow{position:absolute;left:0;right:0;top:47%;display:flex;justify-content:center;z-index:0}
+  .sc-key{position:relative;width:220px;height:50px;border-radius:11px;background:var(--key);border:1px solid var(--key-edge);
+    box-shadow:0 4px 0 var(--key-edge),0 8px 16px rgba(0,0,0,.10);display:flex;align-items:flex-end;justify-content:center;
+    padding-bottom:8px;color:var(--key-text);font:500 14px/1 var(--font-text);letter-spacing:.02em}
+  .sc-ring{position:absolute;inset:-2px;border-radius:12px;border:2px solid var(--hit);opacity:0}
+
+  .sc-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding:12px 20px;
+    font-size:14px;color:var(--muted)}
+  .sc-cap{display:flex;flex-direction:column;gap:8px}
+  .sc-steps{display:flex;flex-wrap:wrap;gap:6px 28px;list-style:none;margin:0;padding:0}
+  .st{display:flex;align-items:center;gap:8px}
+  .st .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1px solid var(--line-strong);
+    font-size:12px;font-variant-numeric:tabular-nums;color:var(--muted)}
+  .sc-toggle{display:inline-flex;align-items:center;gap:7px;flex:none;font:inherit;font-size:14px;color:var(--text);
+    background:transparent;border:1px solid var(--line-strong);border-radius:8px;padding:6px 12px 6px 10px;cursor:pointer}
+  .sc-toggle:hover{background:var(--hover)}
+  .sc-toggle svg{width:14px;height:14px;fill:currentColor}
+  .sc-toggle .i-play{display:none}
+  .scene.is-paused .sc-toggle .i-play{display:block}
+  .scene.is-paused .sc-toggle .i-pause{display:none}
+
+  @media (prefers-reduced-motion:reduce){ .sc-toggle{display:none} }
+
+  @media (prefers-reduced-motion:no-preference){
+    .f1{animation:f1 var(--dur) infinite}
+    .f2{animation:f2 var(--dur) infinite}
+    .f3{animation:f3 var(--dur) infinite}
+    .sc-key{animation:key var(--dur) infinite}
+    .sc-ring{animation:ring var(--dur) infinite}
+    .sc-ql{animation:ql var(--dur) infinite}
+    .sc-pop{animation:pop var(--dur) infinite}
+    .sc-cursor{animation:cur var(--dur) infinite}
+    .st1{animation:st1 var(--dur) infinite}
+    .st2{animation:st2 var(--dur) infinite}
+    .st3{animation:st3 var(--dur) infinite}
+    .scene.is-paused *, .scene.is-paused *::before{animation-play-state:paused}
+  }
+  /* timeline (8 s): row 1 0-11%, row 2 11-21%, row 3 21-95%; Space 27-33%; panel opens 32-41%;
+     cursor 45-57%, click 56%; popup frame 57-86%; panel closes 87-94% */
+  @keyframes f1{0%,10.9%{opacity:1}11%,94.9%{opacity:0}95%,100%{opacity:1}}
+  @keyframes f2{0%,10.9%{opacity:0}11%,20.9%{opacity:1}21%,100%{opacity:0}}
+  @keyframes f3{0%,20.9%{opacity:0}21%,94.9%{opacity:1}95%,100%{opacity:0}}
+  @keyframes key{
+    0%,27%,36%,100%{transform:translateY(0);box-shadow:0 4px 0 var(--key-edge),0 8px 16px rgba(0,0,0,.10);color:var(--key-text);background:var(--key)}
+    29%,33%{transform:translateY(3px);box-shadow:0 1px 0 var(--key-edge),0 2px 6px rgba(0,0,0,.08);color:var(--accent);
+      background:color-mix(in srgb,var(--hit) 14%,var(--key))}}
+  @keyframes ring{0%,28.9%{opacity:0;transform:scale(1)}29%{opacity:.9;transform:scale(1)}38%,100%{opacity:0;transform:scale(1.15,1.5)}}
+  @keyframes ql{0%,31.9%{opacity:0;transform:scale(.04)}32%{opacity:.3;transform:scale(.04)}
+    41%,87%{opacity:1;transform:scale(1)}94%,100%{opacity:0;transform:scale(.04)}}
+  @keyframes pop{0%,56.5%{opacity:0}59%,85%{opacity:1}87%,100%{opacity:0}}
+  @keyframes cur{0%,44%{opacity:0;left:70%;top:80%}46%{opacity:1;left:70%;top:80%}
+    54%{left:47.4%;top:46.5%;transform:scale(1)}55.5%{left:47.4%;top:46.5%;transform:scale(.8)}57%{left:47.4%;top:46.5%;transform:scale(1);opacity:1}
+    62%,100%{left:47.4%;top:46.5%;opacity:0}}
+  @keyframes st1{0%,26%{color:var(--text)}27%,100%{color:var(--muted)}}
+  @keyframes st2{0%,26%{color:var(--muted)}27%,44%{color:var(--text)}45%,100%{color:var(--muted)}}
+  @keyframes st3{0%,44%{color:var(--muted)}45%,87%{color:var(--text)}88%,100%{color:var(--muted)}}
+
+  /* Phone layout: no scaling trick. A stacked composition: the Finder list at actual size,
+     the Space key, then the Quick Look panel cropped around the parks at about 0.9x,
+     so file names and the popup stay readable. */
+  @container (max-width:640px){
+    .sc-visual{display:grid;padding:16px 16px 0}
+    .sc-stage{display:contents}
+    .scene{width:100%}
+    .sc-fwrap{position:relative;inset:auto;order:1;width:100%;aspect-ratio:100/48.9;overflow:hidden;border-radius:10px 0 0 10px;filter:none;
+      box-shadow:0 1px 2px rgba(0,0,0,.2);
+      -webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent)}
+    .sc-fwrap .f{width:190%}
+    .sc-keyrow{position:static;order:2;padding:18px 0}
+    .sc-ql{position:relative;inset:auto;order:3;width:100%;aspect-ratio:100/86;overflow:hidden;border-radius:12px;transform-origin:28% -45%;
+      filter:none;box-shadow:0 10px 24px rgba(0,0,0,.28),0 0 0 1px rgba(0,0,0,.25)}
+    /* The phone crop shows the middle of the window, where the title bar has no text (file name and
+       "Open with GeoPeek" sit outside it), so it would read as an empty grey strip. Start the crop just
+       below the 76 px title bar instead (76/1620 of the image width, doubled for the 200% width). */
+    .sc-qlin{width:200%;margin:-9.3827% 0 0 -48%}
+    .sc-cursor{width:2.6%}
+    .sc-key{width:168px;height:44px;font-size:13px;padding-bottom:7px}
+    .sc-foot{flex-direction:column;align-items:flex-start;padding:14px 16px;margin-top:20px}
+    .sc-steps{flex-direction:column;gap:8px}
+  }
+</style>

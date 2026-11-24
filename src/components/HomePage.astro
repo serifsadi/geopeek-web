@@ -1,0 +1,255 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroScene from './HeroScene.astro';
+import Shot from './Shot.astro';
+import CopyCommand from './CopyCommand.astro';
+import ColumnView from './ColumnView.astro';
+import MapCredit from './MapCredit.astro';
+import { SITE } from '../site';
+import { t, localePath, type Lang } from '../i18n/strings';
+import iconImg from '../assets/brand/icon.png';
+import { getImage } from 'astro:assets';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const icon = await getImage({ src: iconImg, widths: [64, 128, 192], format: 'png' });
+const featureShots = ['feature-popup', 'feature-table', 'feature-stats'];
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'GeoPeek',
+  description: s.meta.homeDesc,
+  url: new URL(localePath(lang, '/'), SITE.url).href,
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'macOS 15.0 or later',
+  softwareVersion: SITE.version,
+  downloadUrl: SITE.dmgUrl,
+  fileSize: SITE.dmgSize,
+  installUrl: SITE.releasesUrl,
+  license: 'https://opensource.org/licenses/MIT',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  image: new URL('/icon-512.png', SITE.url).href,
+  screenshot: new URL('/og.png', SITE.url).href,
+  inLanguage: lang,
+  author: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
+  sameAs: [SITE.repoUrl],
+};
+---
+<Base lang={lang} title={s.meta.homeTitle} description={s.meta.homeDesc} path="/" jsonld={jsonld}>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <img class="hero-icon" src={icon.src} srcset={icon.srcSet.attribute} sizes="64px" width="64" height="64" alt={s.meta.iconAlt} />
+      <p class="hero-name">{s.hero.name}</p>
+      <h1 id="hero-title">{s.hero.title}</h1>
+      <p class="hero-sub">{s.hero.sub}</p>
+      <div class="hero-cta">
+        <a class="btn" href={SITE.dmgUrl}>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8.5M4.5 7.5 8 11l3.5-3.5M3 13.5h10"/></svg>
+          {s.hero.download}
+        </a>
+        <a class="btn-ghost" href="#download">{s.hero.brew}</a>
+      </div>
+      <ul class="hero-facts">{s.hero.facts.map((f) => <li>{f}</li>)}</ul>
+      <HeroScene lang={lang} />
+    </div>
+  </section>
+
+  <ColumnView lang={lang} />
+
+  <section class="sec" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="features-title">{s.features.title}</h2>
+        <p class="lead">{s.features.lead}</p>
+      </div>
+      <div class="rows">
+        {s.features.rows.map((r, i) => (
+          <article class="row">
+            <div class="row-text">
+              <p class="row-k">{r.k}</p>
+              <h3>{r.h}</h3>
+              <p>{r.p}</p>
+            </div>
+            <div class={`row-media m-${featureShots[i]}`}>
+              <div class="frame">
+                <Shot name={featureShots[i]} alt={r.alt} sizes={featureShots[i] === 'feature-stats' ? '(max-width: 860px) 280vw, 1100px' : '(max-width: 860px) 100vw, 680px'} widths={[480, 760, 1020, 1360, 2000]} />
+              </div>
+              {featureShots[i] !== 'feature-table' && <MapCredit class="row-credit" />}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="more-title">
+    <div class="wrap">
+      <h2 id="more-title" class="h-sm">{s.more.title}</h2>
+      <dl class="more">
+        {s.more.items.map((m) => (
+          <div><dt>{m.k}</dt><dd>{m.p}</dd></div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec" id="formats" aria-labelledby="formats-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="formats-title">{s.formats.title}</h2>
+        <p class="lead">{s.formats.lead}</p>
+      </div>
+      <div class="table-wrap">
+        <table class="fmt">
+          <caption class="vh">{s.formats.caption}</caption>
+          <thead><tr>{s.formats.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+          <tbody>
+            {s.formats.rows.map((r) => (
+              <tr><th scope="row">{r[0]}</th><td>{r[1].split(' ').map((e) => <code>{e}</code>)}</td><td>{r[2]}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div class="fmt-figs">
+        {['app-kml', 'app-gpx'].map((n, i) => (
+          <figure>
+            <div class="frame"><Shot name={n} alt={s.formats.figs[i].alt} sizes="(max-width: 860px) 100vw, 540px" widths={[480, 760, 1080, 1600, 2000]} /></div>
+            <figcaption>{s.formats.figs[i].cap}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <MapCredit class="figs-credit" />
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="privacy-title">
+    <div class="wrap">
+      <div class="privacy">
+        <h2 id="privacy-title">{s.privacy.title}</h2>
+        <div>
+          <p class="lead">{s.privacy.p}</p>
+          <p class="more-link"><a href={localePath(lang, '/privacy/')}>{s.privacy.link}</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="download" aria-labelledby="download-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="download-title">{s.download.title}</h2>
+        <p class="lead">{s.download.lead}</p>
+      </div>
+      <div class="dl">
+        <div class="dl-row">
+          <div>
+            <h3>{s.download.dmg}</h3>
+            <p class="dl-meta">{s.download.dmgMeta(SITE.version, SITE.dmgSize)}</p>
+            <p class="dl-hint">{s.download.dmgHint}</p>
+          </div>
+          <div class="dl-act">
+            <a class="btn" href={SITE.dmgUrl}>
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8.5M4.5 7.5 8 11l3.5-3.5M3 13.5h10"/></svg>
+              {s.download.dmgBtn}
+            </a>
+          </div>
+        </div>
+        <div class="dl-row">
+          <div>
+            <h3>{s.download.brew}</h3>
+            <p class="dl-hint">{s.download.brewHint} <a href={localePath(lang, '/support/')}>{s.download.brewHintLink}</a>.</p>
+          </div>
+          <div class="dl-act">
+            <CopyCommand cmd={SITE.brew} copy={s.download.copy} copied={s.download.copied} label={s.download.copyLabel} />
+          </div>
+        </div>
+      </div>
+      <p class="dl-req">{s.download.req} <a href={SITE.releaseNotesUrl}>{s.download.notes}</a></p>
+      <p class="dl-help">{s.download.help}</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero{padding:30px 0 0;text-align:center}
+  .hero-icon{display:block;width:64px;height:64px;margin:0 auto}
+  .hero-name{margin-top:8px;font-weight:600;font-size:15px;color:var(--muted)}
+  .hero h1{font-size:clamp(40px,min(6vw,9svh),72px);line-height:1.02;letter-spacing:-.035em;margin-top:4px}
+  .hero-sub{color:var(--muted);font-size:18px;line-height:1.5;max-width:720px;margin:14px auto 0;text-wrap:pretty}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
+  .hero-facts{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 0;list-style:none;padding:0;margin:14px 0 0;color:var(--muted);font-size:14px}
+  .hero-facts li+li::before{content:"·";margin:0 10px;color:var(--line-strong)}
+
+  .rows{margin-top:56px;border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:center;padding:48px 0;border-bottom:1px solid var(--line)}
+  .row-k{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.01em}
+  .row h3{font-size:26px;line-height:1.2;margin-top:6px;letter-spacing:-.015em}
+  .row-text p:last-child{color:var(--muted);margin-top:10px;max-width:420px}
+  .row-media :global(img){display:block;width:100%;height:auto}
+  /* window captures have no baked shadow (screencapture -o); the shadow follows their own rounded alpha */
+  .frame{filter:drop-shadow(0 10px 24px rgba(0,0,0,.18)) drop-shadow(0 0 0.5px rgba(0,0,0,.45))}
+  .row-credit{margin-top:12px;text-align:right}
+  /* stats: the top left of the app window, cropped by layout (900 x 460 of 2000 x 1360 px), edges fade out */
+  .m-feature-stats{max-width:520px;justify-self:start;width:100%}
+  .m-feature-stats .frame{aspect-ratio:900/460;overflow:hidden;border-radius:12px 0 0 0;filter:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 78%,transparent),linear-gradient(180deg,#000 70%,transparent);-webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,#000 78%,transparent),linear-gradient(180deg,#000 70%,transparent);mask-composite:intersect}
+  .m-feature-stats .frame{position:relative}
+  .m-feature-stats .frame::after{content:"";position:absolute;inset:0;border-radius:12px 0 0 0;box-shadow:inset 1px 1px 0 var(--line-strong);pointer-events:none}
+  .m-feature-stats .frame :global(img){width:222.2%;max-width:none}
+  .m-feature-stats .row-credit{text-align:left}
+  .fmt-figs{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+  .fmt-figs figure{margin:0;min-width:0}
+  .fmt-figs :global(img){display:block;width:100%;height:auto}
+  .fmt-figs figcaption{margin-top:14px;font-size:15px;color:var(--muted)}
+  .figs-credit{margin-top:10px}
+
+  .h-sm{font-size:clamp(24px,3vw,30px)!important}
+  .more{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:56px;margin:28px 0 0;border-top:1px solid var(--line)}
+  .more>div{display:grid;grid-template-columns:minmax(0,11em) minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .more dt{font-weight:600}
+  .more dd{margin:0;color:var(--muted)}
+
+  .table-wrap{margin-top:40px;overflow-x:auto}
+  .fmt{width:100%;border-collapse:collapse;font-size:16px}
+  .fmt th,.fmt td{text-align:left;padding:16px 24px 16px 0;border-bottom:1px solid var(--line);vertical-align:baseline}
+  .fmt thead th{font-size:13px;font-weight:600;color:var(--muted);padding-top:0;border-bottom-color:var(--line-strong)}
+  .fmt tbody th{font-weight:600;white-space:nowrap}
+  .fmt td{color:var(--muted)}
+  .fmt td code{color:var(--text);margin-right:10px;white-space:nowrap}
+
+  .privacy{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;border-top:1px solid var(--line);padding-top:40px}
+  .privacy .lead{margin-top:0;max-width:none}
+  .more-link{margin-top:14px}
+
+  .dl{margin-top:40px;border-top:1px solid var(--line)}
+  .dl-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 40px;align-items:center;padding:28px 0;border-bottom:1px solid var(--line)}
+  .dl-row h3{font-size:20px;letter-spacing:-.01em}
+  .dl-meta{margin-top:4px;font-size:15px;font-variant-numeric:tabular-nums}
+  .dl-hint{margin-top:4px;color:var(--muted);font-size:15px}
+  .dl-act{justify-self:end;min-width:0}
+  .dl-req{margin-top:24px;font-size:15px}
+  .dl-help{margin-top:8px;color:var(--muted);font-size:15px;max-width:760px}
+
+  @media (max-width:860px){
+    .row,.privacy{grid-template-columns:1fr;gap:24px}
+    .row{padding:36px 0}
+    .more{grid-template-columns:1fr}
+    .fmt-figs{grid-template-columns:1fr;gap:28px}
+    .dl-row{grid-template-columns:1fr}
+    .dl-act{justify-self:stretch}
+    .dl-act .btn{width:100%}
+  }
+  @media (max-width:560px){
+    .hero{padding-top:32px}
+    .hero-icon{width:64px;height:64px}
+    .hero-sub{font-size:17px}
+    .hero-cta>*{flex:1 1 100%}
+    .hero-facts{flex-direction:column;gap:2px}
+    .hero-facts li+li::before{content:none}
+    .more>div{grid-template-columns:1fr;gap:2px}
+    .fmt th,.fmt td{padding-right:14px}
+    .fmt thead th:last-child,.fmt td:last-child{display:none}
+  }
+</style>

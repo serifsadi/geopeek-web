@@ -1,0 +1,37 @@
+---
+interface Props { cmd: string; copy: string; copied: string; label: string }
+const { cmd, copy, copied, label } = Astro.props;
+---
+<div class="cmd">
+  <code>{cmd}</code>
+  <button class="copy" type="button" data-cmd={cmd} data-copied={copied} data-copy={copy} aria-label={label}>{copy}</button>
+  <span class="vh" role="status" aria-live="polite"></span>
+</div>
+<script>
+  for (const b of document.querySelectorAll<HTMLButtonElement>('.cmd .copy')) {
+    b.addEventListener('click', async () => {
+      const status = b.parentElement?.querySelector('[role=status]');
+      try {
+        await navigator.clipboard.writeText(b.dataset.cmd!);
+        b.textContent = b.dataset.copied!;
+        if (status) status.textContent = b.dataset.copied!;
+        setTimeout(() => { b.textContent = b.dataset.copy!; if (status) status.textContent = ''; }, 1800);
+      } catch {
+        const r = document.createRange();
+        r.selectNodeContents(b.parentElement!.querySelector('code')!);
+        const sel = getSelection(); sel?.removeAllRanges(); sel?.addRange(r);
+      }
+    });
+  }
+</script>
+<style>
+  .cmd{display:flex;align-items:center;gap:8px;background:var(--code-bg);border:1px solid var(--line);border-radius:10px;padding:6px 6px 6px 14px;min-width:0;max-width:100%}
+  .cmd code{font-size:14px;white-space:nowrap;overflow-x:auto;min-width:0;scrollbar-width:none;color:var(--text)}
+  .copy{flex:none;font:inherit;font-size:14px;font-weight:500;color:var(--text);background:var(--bg);border:1px solid var(--line-strong);border-radius:7px;padding:5px 12px;cursor:pointer}
+  .copy:hover{background:var(--hover)}
+  @media (max-width:560px){
+    .cmd{flex-wrap:wrap;padding:10px 10px 10px 14px}
+    .cmd code{white-space:normal;overflow-wrap:anywhere;flex:1 1 100%}
+    .copy{margin-left:auto}
+  }
+</style>
