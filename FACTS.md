@@ -1,4 +1,4 @@
-# Verified facts used on the site (checked 2026-11-24)
+# Verified facts used on the site (checked 2026-11-25)
 
 | Claim on the site | Source |
 |---|---|
@@ -30,6 +30,12 @@
 | "Homebrew 7 does not load a third-party tap until it is trusted"; install command trusts the cask; `brew trust --cask serifsadi/geopeek/geopeek` | **Verified**: README Troubleshooting, same wording |
 | Preview missing: System Settings > General > Login Items & Extensions > Quick Look; `qlmanage -r` and `killall QuickLookUIService`; remove older copies of GeoPeek.app | **Verified**: README Troubleshooting. TR label "Giriş Öğeleri ve Uzantılar › Hızlı Bakış" is from Turkish third-party guides, **not checked** on a Mac set to Turkish |
 | No account | **Verified**: owner confirmation 2026-11-24 (Şerif). README and CHANGELOG do not mention accounts; consistent with the app (no sign-in, privacy manifests collect no data) |
+| Developer Şerif Şadi Şenkule, Ankara, Türkiye | Site footer and `src/site.ts` already name Şerif Şadi Şenkule and link https://serifsadi.dev. GitHub profile location is Ankara. Ankara and Türkiye on the privacy page are from the owner’s statement for this submission (2026-11-25), not from the app README |
+| Free from GitHub Releases and Homebrew; Mac App Store copy is a one-time purchase with the same features; no in-app purchases or subscriptions | Owner statement 2026-11-25. App repo `RELEASING.md` describes the same app for the Developer ID disk image and the Mac App Store package. The app README does not mention a price. No StoreKit usage was found in the README or changelog |
+| No ads and no crash reporting | Owner statement 2026-11-25. README Privacy: no analytics; privacy manifests declare no tracking and no collected data |
+| Map requests send the user’s IP address and the requested tiles to OpenFreeMap. OpenFreeMap does not use cookies or tracking. Access logs do not store IP addresses. Error logs may include IP and the requested URL. Server logs are deleted after 7 days. Security-incident logs, which may include IP addresses, are deleted when the investigation ends or after 30 days, whichever comes first | **Verified** 2026-11-25 at https://openfreemap.org/privacy/ (Last Updated: October 8, 2026). The policy says it also covers https://tiles.openfreemap.org. Wording on the page, not the shorter “up to 7 days / up to 30 days” summary: error logs are deleted after 7 days; security-incident IP logs are deleted after the investigation or 30 days, whichever comes first; all other server logs are deleted after 7 days |
+| App Store purchases and refunds are handled by Apple. The developer receives no payment details. Refunds: https://reportaproblem.apple.com | Owner statement 2026-11-25. Standard Apple purchase handling; not described in the app README |
+| Contact email | None on geopeek.app or in the geopeek or geopeek-web repositories. https://serifsadi.dev (linked from the site footer) has `mailto:contact@serifsadi.dev`. That address is not used on these pages. The pages show a TODO until an address is chosen for GeoPeek |
 | Set as Default… is in the GeoPeek menu and on the welcome screen | CHANGELOG 0.4.1 |
 | "Lightweight Mac app and Quick Look extension" | README intro ("A lightweight macOS app and Quick Look extension") |
 | Finder column view shows the same Quick Look preview; ↑ ↓ move between files | 0.4.1 screen recordings in light and dark (geopeek-shots-041/{light,dark}/column-arrows*.mp4, column-*.png) |

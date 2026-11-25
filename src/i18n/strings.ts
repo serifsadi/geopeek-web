@@ -14,7 +14,7 @@ export const strings = {
       supportTitle: 'Support · GeoPeek',
       supportDesc: 'Help for GeoPeek: turning on the Quick Look preview, Homebrew, the basemap, default apps, and when to use QGIS instead.',
       privacyTitle: 'Privacy · GeoPeek',
-      privacyDesc: 'GeoPeek reads your files on your Mac and does not upload them. The map background loads from OpenFreeMap, without your file’s contents. No account, no analytics.',
+      privacyDesc: 'GeoPeek opens files on your Mac and never uploads them. The map background is loaded from OpenFreeMap, which receives your IP address with the request. No account, analytics, tracking, ads, or crash reporting.',
       notFoundTitle: 'Page not found · GeoPeek',
       ogImageAlt: 'GeoPeek: Press Space. See the map.',
       iconAlt: 'GeoPeek app icon',
@@ -124,37 +124,53 @@ export const strings = {
         { q: 'What does “Basemap unavailable” mean?', a: '<p>The map background from OpenFreeMap could not load, for example when you are offline. Your file is still drawn, on a plain background.</p>' },
         { q: 'Will GeoPeek become my default app?', a: '<p>Not on its own. GeoPeek opens these files as an alternate app. If you choose Set as Default… in the GeoPeek menu or on the welcome screen, macOS asks you for each of GeoJSON, KML, KMZ, and GPX, and GeoPeek becomes the default only for the ones you approve.</p>' },
         { q: 'Which files does it open?', a: '<p>GeoJSON (.geojson, .json), KML, KMZ, and GPX. JSON that is not GeoJSON opens as a read-only, colored page.</p>' },
-        { q: 'Does GeoPeek upload my files?', a: '<p>No. Files are read on your Mac. The map background loads from OpenFreeMap, and those requests do not include your file’s contents. See <a href="/privacy/">Privacy</a>.</p>' },
+        { q: 'Does GeoPeek upload my files?', a: '<p>No. Files are opened on your Mac and are never uploaded. Parsing and rendering happen on the Mac. The map background loads from OpenFreeMap. That request sends your IP address and the requested tiles, not your file’s contents. See <a href="/privacy/">Privacy</a>.</p>' },
         { q: 'Is the app available in Turkish?', a: '<p>Not yet. The app’s interface is in English. This website is available in English and Turkish.</p>' },
         { q: 'When should I use QGIS instead?', a: '<p>GeoPeek is for a quick look: open a file, see it on a map, read its properties. It does not edit files. For editing, analysis, styling, reprojection, or formats such as Shapefile or GeoPackage, use a full GIS app like <a href="https://qgis.org">QGIS</a>.</p>' },
-        { q: 'Is GeoPeek free?', a: '<p>Yes. GeoPeek is free and open source under the MIT License. The source code is on <a href="https://github.com/serifsadi/geopeek">GitHub</a>.</p>' },
+        { q: 'Is GeoPeek free?', a: '<p>The copy from <a href="https://github.com/serifsadi/geopeek/releases">GitHub Releases</a> and Homebrew is free and open source under the MIT License. The Mac App Store copy is a one-time purchase with the same features. There are no in-app purchases and no subscriptions. The source code is on <a href="https://github.com/serifsadi/geopeek">GitHub</a>.</p>' },
       ],
       changelog: 'Changelog',
       contactTitle: 'Still stuck?',
-      contact: 'Open an issue on GitHub with your macOS version, the GeoPeek version, and what you see. A sample file helps if you can share one.',
+      contactEmail: 'Contact email: TODO. No address is published on this site or in the app repository.',
+      contact: 'To report a bug, include your macOS version, the GeoPeek version, and what you see. A sample file helps if you can share one.',
     },
     privacyPage: {
       title: 'Privacy',
-      updated: 'Last updated: November 24, 2026',
+      updated: 'Last updated: November 25, 2026',
       sections: [
+        { h: 'Developer', ps: [
+          'GeoPeek is developed by Şerif Şadi Şenkule, Ankara, Türkiye.',
+          'It is free from GitHub Releases and Homebrew. On the Mac App Store it is a one-time purchase with the same features. There are no in-app purchases and no subscriptions.',
+        ] },
         { h: 'The app', ps: [
-          'GeoPeek reads the files you open on your Mac. Files are not uploaded.',
-          'There is no account, no analytics, and no tracking. The app’s privacy manifests declare no tracking and no collected data.',
+          'Files are opened locally and are never uploaded. All parsing and rendering happens on the Mac.',
+          'There is no account, no analytics, no tracking, no ads, and no crash reporting. The app’s privacy manifests declare no tracking and no collected data.',
           'The app and its Quick Look extension are sandboxed, with read-only access to files you choose.',
         ] },
         { h: 'Map tiles', ps: [
-          'To draw the map background, the app and the Quick Look preview request a map style, tiles, fonts, and icons from OpenFreeMap at tiles.openfreemap.org. The style is dark or positron, to match your Mac. These requests do not include your file’s contents. OpenFreeMap’s <a href="https://openfreemap.org/privacy/">privacy policy</a> covers its tile service.',
+          'The map background is loaded from OpenFreeMap at tiles.openfreemap.org. The app and the Quick Look preview request a map style, tiles, fonts, and icons from that host. The style is dark or positron, to match your Mac. Like any web request, this sends your IP address and the requested map tiles to OpenFreeMap. The requests do not include your file’s contents.',
+          'OpenFreeMap’s <a href="https://openfreemap.org/privacy/">privacy policy</a> says it does not use cookies or tracking. Access logs do not store IP addresses. An error log may include the IP address and the requested URL. Server logs are deleted after 7 days. Logs kept for a security incident, which may include IP addresses, are deleted when the investigation ends or after 30 days, whichever comes first.',
+          'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
           'If the basemap cannot load, your file is still drawn on a plain background.',
         ] },
         { h: 'Finder thumbnails', ps: [
           'The thumbnail extension has no network access. For GeoJSON, KML, KMZ, and GPX files it shows the GeoPeek icon without reading the file.',
         ] },
+        { h: 'Purchases', ps: [
+          'Mac App Store purchases are handled by Apple. GeoPeek does not receive your payment details. Refunds go through Apple at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.',
+        ] },
         { h: 'This website', ps: [
           'This website sets no cookies. It uses Cloudflare Web Analytics to count visits, which works without cookies and shows only aggregate statistics. It is a static site.',
           'Download links go to GitHub, where the disk image is hosted.',
         ] },
-        { h: 'Questions', ps: [
-          'Open an issue on <a href="https://github.com/serifsadi/geopeek/issues">GitHub</a>. GeoPeek is open source, so you can also read the code.',
+        { h: 'Children', ps: [
+          'GeoPeek is not directed at children, and it does not knowingly collect personal information from children.',
+        ] },
+        { h: 'Changes', ps: [
+          'If this policy changes, the updated text is posted on this page with a new date.',
+        ] },
+        { h: 'Contact', ps: [
+          'Contact email: TODO. No address is published on this site or in the app repository. Until then, open an issue on <a href="https://github.com/serifsadi/geopeek/issues">GitHub</a>. GeoPeek is open source, so you can also read the code.',
         ] },
       ],
     },
@@ -173,7 +189,7 @@ export const strings = {
       supportTitle: 'Destek · GeoPeek',
       supportDesc: 'GeoPeek yardım: Quick Look önizlemesini açmak, Homebrew, altlık harita, varsayılan uygulama ve QGIS ne zaman daha uygun.',
       privacyTitle: 'Gizlilik · GeoPeek',
-      privacyDesc: 'GeoPeek dosyalarınızı Mac’inizde okur ve hiçbir yere yüklemez. Harita altlığı OpenFreeMap’ten yüklenir, bu isteklere dosyanın içeriği eklenmez. Hesap yok, analitik yok.',
+      privacyDesc: 'GeoPeek dosyaları Mac’inizde açar ve hiçbir yere yüklemez. Harita altlığı OpenFreeMap’ten yüklenir ve bu istek IP adresinizi iletir. Hesap, analitik, izleme, reklam ve çökme raporu yok.',
       notFoundTitle: 'Sayfa bulunamadı · GeoPeek',
       ogImageAlt: 'GeoPeek: Space’e bas. Haritayı gör.',
       iconAlt: 'GeoPeek uygulama simgesi',
@@ -283,37 +299,53 @@ export const strings = {
         { q: '“Basemap unavailable” ne demek?', a: '<p>OpenFreeMap’ten gelen harita altlığı yüklenemedi, örneğin çevrimdışıyken. Dosyanız yine de düz bir arka plan üzerinde çizilir.</p>' },
         { q: 'GeoPeek varsayılan uygulamam olur mu?', a: '<p>Kendiliğinden olmaz. GeoPeek bu dosyaları alternatif uygulama olarak açar. GeoPeek menüsünden ya da karşılama ekranından Set as Default… komutunu seçerseniz macOS GeoJSON, KML, KMZ ve GPX için ayrı ayrı sorar. GeoPeek yalnızca onayladığınız biçimler için varsayılan olur.</p>' },
         { q: 'Hangi dosyaları açar?', a: '<p>GeoJSON (.geojson, .json), KML, KMZ ve GPX. GeoJSON olmayan JSON salt okunur, renkli bir sayfa olarak açılır.</p>' },
-        { q: 'GeoPeek dosyalarımı yükler mi?', a: '<p>Hayır. Dosyalar Mac’inizde okunur. Harita altlığı OpenFreeMap’ten yüklenir ve dosyanın içeriği bu isteklere eklenmez. Ayrıntılar için <a href="/tr/privacy/">Gizlilik</a> sayfasına bakın.</p>' },
+        { q: 'GeoPeek dosyalarımı yükler mi?', a: '<p>Hayır. Dosyalar Mac’inizde açılır ve hiçbir yere yüklenmez. Ayrıştırma ve çizim Mac’te yapılır. Harita altlığı OpenFreeMap’ten yüklenir. Bu istek IP adresinizi ve istenen karoları gönderir, dosyanın içeriğini göndermez. Ayrıntılar için <a href="/tr/privacy/">Gizlilik</a> sayfasına bakın.</p>' },
         { q: 'Uygulama Türkçe mi?', a: '<p>Henüz değil, uygulamanın arayüzü İngilizce. Bu web sitesi İngilizce ve Türkçe.</p>' },
         { q: 'Ne zaman QGIS kullanmalıyım?', a: '<p>GeoPeek hızlı bir bakış için: dosyayı açarsınız, haritada görürsünüz, özelliklerini okursunuz. Dosyaları düzenlemez. Düzenleme, analiz, stil verme, projeksiyon dönüştürme ya da Shapefile, GeoPackage gibi biçimler için <a href="https://qgis.org">QGIS</a> gibi tam bir CBS uygulaması kullanın.</p>' },
-        { q: 'GeoPeek ücretsiz mi?', a: '<p>Evet. GeoPeek ücretsiz ve MIT lisansıyla açık kaynak. Kaynak kod <a href="https://github.com/serifsadi/geopeek">GitHub</a>’da.</p>' },
+        { q: 'GeoPeek ücretsiz mi?', a: '<p><a href="https://github.com/serifsadi/geopeek/releases">GitHub Releases</a> ve Homebrew kopyası ücretsizdir ve MIT lisansıyla açık kaynaktır. Mac App Store kopyası aynı özelliklerle tek seferlik ücretlidir. Uygulama içi satın alma ve abonelik yoktur. Kaynak kod <a href="https://github.com/serifsadi/geopeek">GitHub</a>’da.</p>' },
       ],
       changelog: 'Sürüm notları',
       contactTitle: 'Hâlâ çözülmedi mi?',
-      contact: 'GitHub’da bir issue açın; macOS sürümünüzü, GeoPeek sürümünü ve ne gördüğünüzü yazın. Paylaşabileceğiniz bir örnek dosya varsa çok yardımcı olur.',
+      contactEmail: 'İletişim e-postası: TODO. Bu sitede ve uygulama deposunda yayımlanmış bir adres yok.',
+      contact: 'Bir hatayı bildirmek için macOS sürümünüzü, GeoPeek sürümünü ve ne gördüğünüzü yazın. Paylaşabileceğiniz bir örnek dosya varsa çok yardımcı olur.',
     },
     privacyPage: {
       title: 'Gizlilik',
-      updated: 'Son güncelleme: 24 Kasım 2026',
+      updated: 'Son güncelleme: 25 Kasım 2026',
       sections: [
+        { h: 'Geliştirici', ps: [
+          'GeoPeek’i Ankara, Türkiye’de Şerif Şadi Şenkule geliştirir.',
+          'Aynı uygulama GitHub Releases ve Homebrew üzerinden ücretsizdir. Mac App Store’da ise aynı özelliklerle tek seferlik ücretlidir. Uygulama içi satın alma ve abonelik yoktur.',
+        ] },
         { h: 'Uygulama', ps: [
-          'GeoPeek, açtığınız dosyaları Mac’inizde okur. Dosyalar hiçbir yere yüklenmez.',
-          'Hesap yok, analitik yok, izleme yok. Uygulamanın gizlilik bildirim dosyaları (privacy manifest) izleme ve veri toplama olmadığını belirtir.',
+          'Dosyalar yerelde açılır ve hiçbir yere yüklenmez. Ayrıştırma ve çizim Mac’te yapılır.',
+          'Hesap yok, analitik yok, izleme yok, reklam yok, çökme raporu yok. Uygulamanın gizlilik bildirim dosyaları (privacy manifest) izleme ve veri toplama olmadığını belirtir.',
           'Uygulama ve Quick Look eklentisi sandbox içinde çalışır. Yalnızca sizin seçtiğiniz dosyalara erişebilir ve bu dosyaları yalnızca okuyabilir.',
         ] },
         { h: 'Harita altlığı', ps: [
-          'Harita arka planını çizmek için uygulama ve Quick Look önizlemesi, tiles.openfreemap.org adresindeki OpenFreeMap’ten harita stili, karolar, yazı tipleri ve simgeler ister. Stil, Mac’inizin görünümüne göre dark ya da positron olur. Bu isteklere dosyanın içeriği eklenmez. OpenFreeMap’in karo hizmeti kendi <a href="https://openfreemap.org/privacy/">gizlilik politikasına</a> tabidir.',
+          'Harita arka planı tiles.openfreemap.org adresindeki OpenFreeMap’ten yüklenir. Uygulama ve Quick Look önizlemesi bu adresten harita stili, karolar, yazı tipleri ve simgeler ister. Stil, Mac’inizin görünümüne göre dark ya da positron olur. Her web isteği gibi bu da IP adresinizi ve istenen harita karolarını OpenFreeMap’e gönderir. İsteklere dosyanın içeriği eklenmez.',
+          'OpenFreeMap’in <a href="https://openfreemap.org/privacy/">gizlilik politikası</a> çerez ve izleme kullanmadığını söyler. Erişim günlüklerinde IP adresi tutulmaz. Hata günlüğü IP adresini ve istenen adresi içerebilir. Sunucu günlükleri 7 gün sonra silinir. Güvenlik olayı için tutulan ve IP adresi içerebilen günlükler, inceleme bitince ya da 30 gün sonra, hangisi önce gelirse, silinir.',
+          'Harita verisi © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
           'Altlık yüklenemezse dosyanız yine de düz bir arka plan üzerinde çizilir.',
         ] },
         { h: 'Finder küçük resimleri', ps: [
           'Küçük resim eklentisinin ağ erişimi yoktur. GeoJSON, KML, KMZ ve GPX dosyaları için dosyayı okumadan GeoPeek simgesini gösterir.',
         ] },
+        { h: 'Satın alma', ps: [
+          'Mac App Store satın almalarını Apple yürütür. GeoPeek ödeme bilgilerinizi almaz. İadeler Apple üzerinden yapılır: <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.',
+        ] },
         { h: 'Bu web sitesi', ps: [
           'Bu site çerez kullanmaz. Ziyaretleri saymak için çerezsiz çalışan ve yalnızca toplu istatistik gösteren Cloudflare Web Analytics kullanılır. Statik bir sitedir.',
           'İndirme bağlantıları, disk görüntüsünün barındırıldığı GitHub’a gider.',
         ] },
-        { h: 'Sorular', ps: [
-          '<a href="https://github.com/serifsadi/geopeek/issues">GitHub</a>’da bir issue açabilirsiniz. GeoPeek açık kaynak olduğu için kodu kendiniz de okuyabilirsiniz.',
+        { h: 'Çocuklar', ps: [
+          'GeoPeek çocuklara yönelik değildir ve çocuklardan bilerek kişisel bilgi toplamaz.',
+        ] },
+        { h: 'Değişiklikler', ps: [
+          'Bu politika değişirse güncellenmiş metin, yeni bir tarihle bu sayfada yayımlanır.',
+        ] },
+        { h: 'İletişim', ps: [
+          'İletişim e-postası: TODO. Bu sitede ve uygulama deposunda yayımlanmış bir adres yok. O zamana kadar <a href="https://github.com/serifsadi/geopeek/issues">GitHub</a>’da bir issue açabilirsiniz. GeoPeek açık kaynak olduğu için kodu kendiniz de okuyabilirsiniz.',
         ] },
       ],
     },
