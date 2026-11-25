@@ -131,7 +131,7 @@ export const strings = {
       ],
       changelog: 'Changelog',
       contactTitle: 'Still stuck?',
-      contactEmail: 'Contact email: TODO. No address is published on this site or in the app repository.',
+      contactEmail: 'Email <a href="mailto:contact@geopeek.app">contact@geopeek.app</a>.',
       contact: 'To report a bug, include your macOS version, the GeoPeek version, and what you see. A sample file helps if you can share one.',
     },
     privacyPage: {
@@ -170,7 +170,7 @@ export const strings = {
           'If this policy changes, the updated text is posted on this page with a new date.',
         ] },
         { h: 'Contact', ps: [
-          'Contact email: TODO. No address is published on this site or in the app repository. Until then, open an issue on <a href="https://github.com/serifsadi/geopeek/issues">GitHub</a>. GeoPeek is open source, so you can also read the code.',
+          'Email <a href="mailto:contact@geopeek.app">contact@geopeek.app</a>, or open an issue on <a href="https://github.com/serifsadi/geopeek/issues">GitHub</a>. GeoPeek is open source, so you can also read the code.',
         ] },
       ],
     },
@@ -306,7 +306,7 @@ export const strings = {
       ],
       changelog: 'Sürüm notları',
       contactTitle: 'Hâlâ çözülmedi mi?',
-      contactEmail: 'İletişim e-postası: TODO. Bu sitede ve uygulama deposunda yayımlanmış bir adres yok.',
+      contactEmail: 'E-posta: <a href="mailto:contact@geopeek.app">contact@geopeek.app</a>.',
       contact: 'Bir hatayı bildirmek için macOS sürümünüzü, GeoPeek sürümünü ve ne gördüğünüzü yazın. Paylaşabileceğiniz bir örnek dosya varsa çok yardımcı olur.',
     },
     privacyPage: {
@@ -345,7 +345,7 @@ export const strings = {
           'Bu politika değişirse güncellenmiş metin, yeni bir tarihle bu sayfada yayımlanır.',
         ] },
         { h: 'İletişim', ps: [
-          'İletişim e-postası: TODO. Bu sitede ve uygulama deposunda yayımlanmış bir adres yok. O zamana kadar <a href="https://github.com/serifsadi/geopeek/issues">GitHub</a>’da bir issue açabilirsiniz. GeoPeek açık kaynak olduğu için kodu kendiniz de okuyabilirsiniz.',
+          'E-posta: <a href="mailto:contact@geopeek.app">contact@geopeek.app</a>. <a href="https://github.com/serifsadi/geopeek/issues">GitHub</a>’da bir issue da açabilirsiniz. GeoPeek açık kaynak olduğu için kodu kendiniz de okuyabilirsiniz.',
         ] },
       ],
     },
