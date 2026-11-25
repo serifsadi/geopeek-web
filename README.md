@@ -24,7 +24,7 @@ paths (`/support/`), so use the preview server to click around.
 
 ## Rules for this site
 - No cookies. Cloudflare Web Analytics for visit counts (injected by Cloudflare at the edge, cookieless, aggregate statistics). No web fonts. JavaScript only for the pause and copy buttons, plus Cloudflare's analytics beacon.
-- Only verified product facts (see `FACTS.md`). No App Store line until it is live. No performance numbers.
+- Only verified product facts (see `FACTS.md`). The home page does not mention the Mac App Store. Privacy and support do, because those URLs are used for the Mac App Store submission: the GitHub and Homebrew copies stay free, and the App Store copy is a one-time purchase with the same features. No performance numbers.
 - Map attribution in the footer: OpenFreeMap, OpenMapTiles, © OpenStreetMap contributors (ODbL). See `CREDITS.md`.
 
 ## Deploy (later, after approval)
