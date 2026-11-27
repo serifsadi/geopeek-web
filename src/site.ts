@@ -1,15 +1,18 @@
 // Single source for release facts. Update on each release.
-// Verified 2026-11-24 against GitHub Releases, the repo README and the Homebrew tap README.
+// The DMG version and URL point at the v1.0.0 launch asset. Checked 2026-11-27:
+// GitHub has no v1.0.0 release yet. dmgSize and released stay the verified
+// v0.4.1 figures (2,780,712 bytes, published 2026-11-23). Recheck both before launch.
 export const SITE = {
   url: 'https://geopeek.app',
   name: 'GeoPeek',
-  version: '0.4.1',
+  version: '1.0.0',
   released: '2026-11-23',
-  dmgName: 'GeoPeek-0.4.1.dmg',
-  dmgUrl: 'https://github.com/serifsadi/geopeek/releases/download/v0.4.1/GeoPeek-0.4.1.dmg',
-  dmgSize: '2.8 MB', // 2,780,712 bytes
+  dmgName: 'GeoPeek-1.0.0.dmg',
+  dmgUrl: 'https://github.com/serifsadi/geopeek/releases/download/v1.0.0/GeoPeek-1.0.0.dmg',
+  dmgSize: '2.8 MB', // 2,780,712 bytes on v0.4.1; recheck GeoPeek-1.0.0.dmg before launch
   releasesUrl: 'https://github.com/serifsadi/geopeek/releases',
-  releaseNotesUrl: 'https://github.com/serifsadi/geopeek/releases/tag/v0.4.1',
+  releaseNotesUrl: 'https://github.com/serifsadi/geopeek/releases/tag/v1.0.0',
+  macAppStoreUrl: 'https://apps.apple.com/app/id6839084436',
   repoUrl: 'https://github.com/serifsadi/geopeek',
   issuesUrl: 'https://github.com/serifsadi/geopeek/issues',
   newIssueUrl: 'https://github.com/serifsadi/geopeek/issues/new',

@@ -164,6 +164,15 @@ const jsonld = {
             <CopyCommand cmd={SITE.brew} copy={s.download.copy} copied={s.download.copied} label={s.download.copyLabel} />
           </div>
         </div>
+        <div class="dl-row">
+          <a class="dl-badge" href={SITE.macAppStoreUrl}>
+            <img
+              src={lang === 'tr' ? '/badges/mac-app-store-black-tr.svg' : '/badges/mac-app-store-black-en.svg'}
+              alt={s.download.macBadge}
+              height="40"
+            />
+          </a>
+        </div>
       </div>
       <p class="dl-req">{s.download.req} <a href={SITE.releaseNotesUrl}>{s.download.notes}</a></p>
       <p class="dl-help">{s.download.help}</p>
@@ -229,6 +238,11 @@ const jsonld = {
   .dl-meta{margin-top:4px;font-size:15px;font-variant-numeric:tabular-nums}
   .dl-hint{margin-top:4px;color:var(--muted);font-size:15px}
   .dl-act{justify-self:end;min-width:0}
+  /* Official Mac App Store badge, unmodified. Height is Apple's 40px on-screen minimum.
+     Clear space is one quarter of that height (10px). Row padding is 28px, so the
+     borders and the rows above stay outside that space. No shadow, scale, or recolor. */
+  .dl-badge{grid-column:2;justify-self:end;line-height:0;text-decoration:none}
+  .dl-badge img{display:block;width:auto;height:40px;max-width:none}
   .dl-req{margin-top:24px;font-size:15px}
   .dl-help{margin-top:8px;color:var(--muted);font-size:15px;max-width:760px}
 
@@ -240,6 +254,7 @@ const jsonld = {
     .dl-row{grid-template-columns:1fr}
     .dl-act{justify-self:stretch}
     .dl-act .btn{width:100%}
+    .dl-badge{grid-column:1;justify-self:start}
   }
   @media (max-width:560px){
     .hero{padding-top:32px}

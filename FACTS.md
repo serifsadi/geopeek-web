@@ -16,7 +16,7 @@
 | macOS 15.0 or later | README Requirements, project.pbxproj MACOSX_DEPLOYMENT_TARGET = 15.0 |
 | Universal (Apple silicon and Intel) | `file` on GeoPeek 0.4.1 DMG binaries: x86_64 + arm64 for app and both extensions |
 | Signed and notarized | CHANGELOG 0.3.0 (Developer ID, release script notarizes); 0.4.1 app has a stapled ticket |
-| Version 0.4.1, 2,780,712 bytes, released 2026-11-23 | GitHub Release v0.4.1 |
+| Download version 1.0.0, disk image GeoPeek-1.0.0.dmg. The page still shows 2.8 MB, and `released` is still 2026-11-23. Those two figures are the verified v0.4.1 asset (2,780,712 bytes, published 2026-11-23). GitHub had no v1.0.0 release on 2026-11-27, so size and date need a check before launch. | `src/site.ts`. Last published asset: GitHub Release v0.4.1 |
 | `brew install --cask serifsadi/geopeek/geopeek`, `brew trust --cask ...` | homebrew-geopeek README, app README Troubleshooting |
 | Files read locally, not uploaded; map background requests to tiles.openfreemap.org without file contents | README Privacy. Site no longer says these are the *only* requests (README also notes attribution links and the MapLibre logo open in the browser) |
 | App and QL extension sandboxed, user-selected read-only, network client | entitlements files |
