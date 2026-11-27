@@ -13,7 +13,7 @@ npx astro preview  # http://localhost:4321
 paths (`/support/`), so use the preview server to click around.
 
 ## Layout
-- `src/site.ts`: release facts (version, DMG URL and size, brew command). Update on each release.
+- `src/site.ts`: release facts (version, DMG URL and size, brew command, Mac App Store URL). Update on each release.
 - `src/i18n/strings.ts`: all copy, EN and TR. No em dashes. Claims must match the app repo.
 - `src/components/HeroScene.astro`: Finder > Space > Quick Look animation (CSS, 8 s loop), pause button,
   reduced-motion still, stacked phone layout.
@@ -24,7 +24,7 @@ paths (`/support/`), so use the preview server to click around.
 
 ## Rules for this site
 - No cookies. Cloudflare Web Analytics for visit counts (injected by Cloudflare at the edge, cookieless, aggregate statistics). No web fonts. JavaScript only for the pause and copy buttons, plus Cloudflare's analytics beacon.
-- Only verified product facts (see `FACTS.md`). The home page does not mention the Mac App Store. Privacy and support do, because those URLs are used for the Mac App Store submission: the GitHub and Homebrew copies stay free, and the App Store copy is a one-time purchase with the same features. No performance numbers.
+- Only verified product facts (see `FACTS.md`). The home page download section includes Apple's official Mac App Store badge, with no price and no extra marketing copy. Privacy and support explain the purchase: the GitHub and Homebrew copies stay free, and the App Store copy is a one-time purchase with the same features. No performance numbers.
 - Map attribution in the footer: OpenFreeMap, OpenMapTiles, © OpenStreetMap contributors (ODbL). See `CREDITS.md`.
 
 ## Deploy (later, after approval)
